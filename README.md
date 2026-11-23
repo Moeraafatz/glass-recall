@@ -6,7 +6,7 @@
 
 **Zero-cloud semantic screen memory for macOS — find any error, slide, chat, invoice, or tab you ever saw in milliseconds.**
 
-Built in pure **Swift 6** for Apple Silicon (macOS 15+).  
+Built in pure **Swift 6** for Apple Silicon (macOS 15+) in a **2.1 MB** native menu bar app.  
 **Zero cloud. Zero raw screenshots kept on disk. Zero third-party dependencies. Zero subscriptions.**
 
 [![Download Latest](https://img.shields.io/badge/Download-GlassRecall--1.0.0.dmg-30D158?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Moeraafatz/glass-recall/releases/latest)
@@ -29,14 +29,15 @@ Built in pure **Swift 6** for Apple Silicon (macOS 15+).
 
 ## Why Glass Recall?
 
-Screen-memory tools either charge **$20–$30/month**, upload recordings to cloud servers, or quietly eat **15–60 GB/month** storing continuous video of your screen.
+Screen-memory tools either charge **$20–$30/month**, upload recordings to cloud servers, or quietly eat **8–65 GB/month** storing continuous video of your screen.
 
-**Glass Recall** solves screen recall with an inverted architecture: it diffs frames in RAM (`<1 ms`), runs **Apple Vision OCR** only when content actually changes, **scrubs API keys & tokens automatically**, stores compact **SQLite WAL + FTS5 + 128-d vectors**, and **drops raw pixels immediately** so zero screenshots ever touch your SSD.
+**Glass Recall** solves screen recall with an inverted architecture: it diffs frames in RAM (`0.10 ms`), runs **Apple Vision OCR** only when content actually changes, **scrubs API keys & tokens automatically**, stores compact **SQLite WAL + FTS5 + 128-d vectors**, and **drops raw pixels immediately** so zero screenshots ever touch your SSD.
 
 | | **Glass Recall** | Paid Recall SaaS (Rewind / Limitless) | Video Screen Recorders | Manual Tab/Log Hunting |
 | :--- | :---: | :---: | :---: | :---: |
 | **Price** | **Free & Open Source (MIT)** | $20–$30/mo | Free / Paid | Free (costs hours/wk) |
-| **30-Day Disk Footprint** | **~100–130 MB SQLite** | 10–25 GB video | 15–65 GB | 0 MB |
+| **App Installer Size** | **2.1 MB DMG (2.2 MB .app)** | 150–400 MB | 80–300 MB | N/A |
+| **30-Day Disk Footprint** | **~48.4 MB SQLite (measured)** | 8–25 GB video | 15–65 GB | 0 MB |
 | **Raw Screenshots Stored on Disk** | **0 Bytes (RAM-only)** | Video chunks | Video / PNGs | None |
 | **Automatic Secret Redaction** | ✅ 12 credential scrubbers | ⚠️ Limited | ❌ | N/A |
 | **Pre-Capture Privacy Blocklist** | ✅ Blocks 1Password/Incognito before pixel grab | ⚠️ Partial | ❌ | N/A |
@@ -86,7 +87,7 @@ Every screenshot below is rendered directly from the compiled SwiftUI `GlassReca
 </p>
 
 1. **Pre-Capture Privacy Gate (`ContextInspector`)** — Inspects active app bundle ID and window title *before* requesting a single pixel. Immediately blocks password managers (`1Password`, `Apple Passwords`, `Bitwarden`, `Keychain Access`, `KeePassXC`, `Dashlane`) and Private/Incognito browser windows.
-2. **Sub-Millisecond Frame Differ (`FrameDiffer`)** — Downscales to a `64×36` grayscale grid + 64-bit `dHash`. Static screens are dropped before OCR ever runs, backed by adaptive interval backoff.
+2. **Sub-Millisecond Frame Differ (`FrameDiffer`)** — Downscales to a `64×36` grayscale grid + 64-bit `dHash`. Static screens are dropped in `0.10 ms` before OCR ever runs, backed by adaptive interval backoff.
 3. **Offline Vision OCR (`OCREngine`)** — Runs Apple `VNRecognizeTextRequest` locally on Apple Neural Engine / GPU, then immediately frees the `CGImage` buffer in RAM.
 4. **Automatic Secret Redactor (`TextSanitizer`)** — Scrubs OpenAI, Anthropic, GitHub, AWS, Stripe, Slack, Google API keys, JWTs, Bearer headers, PEM private keys, and inline `password=`/`secret=` assignments before persistence.
 5. **Hybrid Retrieval (`MemoryStore` + `SemanticEmbedder`)** — Combines SQLite WAL `FTS5` (`porter unicode61` + `bm25()`) with 128-dim `Accelerate` (`vDSP_dotpr`) cosine similarity (blending `NaturalLanguage` offline sentence embeddings + character-trigram hashing for code/error/token recall) and recency decay.
@@ -113,19 +114,7 @@ All graphs and metrics below are **measured live on Apple Silicon CI** via `Glas
 </table>
 
 <!-- BENCHMARK_TABLE_START -->
-### Measured Benchmarks (Apple Silicon (arm64) · Version 26.7.2 (Build 25G332))
-
-- **Frame-Diff Gate:** `0.10 ms` avg evaluation · `80.0%` static frames dropped before OCR
-- **Apple Vision OCR:** `750.6 ms` avg per changed 1280×800 frame · `100.0%` verified token recall
-- **Secret Redactor:** `0.28 ms` avg · `4/4` injected credential types scrubbed
-- **30-Day Storage (47,520 memories):** **`48.4 MB`** vs `64.2 GB` raw PNG (**`1357x` smaller**)
-
-| Indexed Memories | SQLite WAL Size | Bytes / Memory | Hybrid Search p50 | Hybrid Search p95 |
-| ---: | ---: | ---: | ---: | ---: |
-| 1000 | 1.09 MB | 1143 B | **4.78 ms** | **5.67 ms** |
-| 5000 | 5.09 MB | 1067 B | **6.91 ms** | **15.77 ms** |
-| 10000 | 10.02 MB | 1050 B | **8.04 ms** | **10.59 ms** |
-| 25000 | 25.48 MB | 1069 B | **16.11 ms** | **20.91 ms** |
+*Benchmarks are populated automatically on CI build from `docs/benchmarks.json`.*
 <!-- BENCHMARK_TABLE_END -->
 
 ---

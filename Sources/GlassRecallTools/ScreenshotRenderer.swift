@@ -90,7 +90,7 @@ enum ScreenshotRenderer {
                         .foregroundStyle(GlassTheme.textSecondary)
                 }
 
-                HStack(alignment: .top, spacing: 22) {
+                HStack(alignment: .center, spacing: 24) {
                     panelPreview(image: search, caption: "Instant Hybrid Recall (⌘1)")
                     panelPreview(image: insights, caption: "Diff-Gate & Storage Savings (⌘3)")
                     panelPreview(image: privacy, caption: "Zero-Cloud Privacy Gate (⌘4)")
@@ -99,7 +99,7 @@ enum ScreenshotRenderer {
             .padding(.horizontal, 36)
             .padding(.vertical, 34)
         }
-        .frame(width: 1620, height: 740)
+        .frame(width: 1640, height: 860)
         .preferredColorScheme(.dark)
 
         let renderer = ImageRenderer(content: heroView)

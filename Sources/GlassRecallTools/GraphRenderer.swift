@@ -73,8 +73,8 @@ enum GraphRenderer {
             fillRoundedRect(ctx, rect: p50Rect, radius: 8, r: 0.39, g: 0.82, b: 1.0, a: 0.92)
             fillRoundedRect(ctx, rect: p95Rect, radius: 8, r: 0.19, g: 0.82, b: 0.35, a: 0.92)
 
-            drawText(ctx, String(format: "%.1fms", pt.searchP50Ms), x: p50Rect.minX + 6, y: p50Rect.maxY + 10, size: 15, weight: .bold, r: 0.39, g: 0.82, b: 1.0)
-            drawText(ctx, String(format: "%.1fms", pt.searchP95Ms), x: p95Rect.minX + 6, y: p95Rect.maxY + 10, size: 15, weight: .bold, r: 0.19, g: 0.82, b: 0.35)
+            drawText(ctx, String(format: "%.1fms", pt.searchP50Ms), x: p50Rect.minX + 4, y: p50Rect.maxY + 10, size: 15, weight: .bold, r: 0.39, g: 0.82, b: 1.0)
+            drawText(ctx, String(format: "%.1fms", pt.searchP95Ms), x: p95Rect.minX + 4, y: p95Rect.maxY + 10, size: 15, weight: .bold, r: 0.19, g: 0.82, b: 0.35)
 
             let label = pt.recordCount >= 1_000 ? "\(pt.recordCount / 1_000)K memories" : "\(pt.recordCount)"
             drawText(ctx, label, x: centerX - 52, y: plot.minY - 34, size: 16, weight: .bold, r: 0.92, g: 0.95, b: 0.98)
@@ -124,9 +124,9 @@ enum GraphRenderer {
         let items: [BarItem] = [
             BarItem(
                 label: "Glass Recall (SQLite WAL)",
-                detail: String(format: "%.0f bytes/memory measured", report.scalePoints.last?.bytesPerMemory ?? 2400),
+                detail: String(format: "%.0f bytes/memory measured", report.scalePoints.last?.bytesPerMemory ?? 1100),
                 valueGB: glassGB,
-                display: String(format: "%.1f MB (0.%.0f GB)", report.projected30DayGlassRecallMB, min(99, (glassGB * 100).rounded())),
+                display: String(format: "%.1f MB (%.2f GB)", report.projected30DayGlassRecallMB, glassGB),
                 r: 0.19, g: 0.82, b: 0.35
             ),
             BarItem(
@@ -147,7 +147,7 @@ enum GraphRenderer {
 
         let maxGB = max(report.projected30DayRawPNGGB, 10.0)
         let barLeft: CGFloat = 390
-        let barMaxWidth: CGFloat = 620
+        let barMaxWidth: CGFloat = 570
         let startY: CGFloat = 355
         let rowStep: CGFloat = 112
 
@@ -223,7 +223,7 @@ enum GraphRenderer {
         for (idx, st) in stages.enumerated() {
             let y = rightCard.maxY - 102 - CGFloat(idx) * 66
             drawText(ctx, st.0, x: rightCard.minX + 24, y: y + 20, size: 15, weight: .bold, r: 0.90, g: 0.94, b: 0.98)
-            drawText(ctx, String(format: "%.2f ms", st.1), x: rightCard.maxX - 110, y: y + 20, size: 15, weight: .bold, r: st.2, g: st.3, b: st.4)
+            drawText(ctx, String(format: "%.2f ms", st.1), x: rightCard.maxX - 118, y: y + 20, size: 15, weight: .bold, r: st.2, g: st.3, b: st.4)
 
             let barRect = CGRect(x: rightCard.minX + 24, y: y, width: rightCard.width - 48, height: 12)
             fillRoundedRect(ctx, rect: barRect, radius: 6, r: 1, g: 1, b: 1, a: 0.08)
