@@ -1,44 +1,44 @@
 {
-  "frameDiffAvgMs" : 0.1029813289642334,
+  "frameDiffAvgMs" : 0.22886157035827637,
   "frameDiffSkipRatePercent" : 80,
-  "generatedAtISO8601" : "2026-11-23T11:43:17Z",
+  "generatedAtISO8601" : "2026-11-23T12:02:59Z",
   "hostArchitecture" : "Apple Silicon (arm64)",
   "osVersion" : "Version 26.7.2 (Build 25G332)",
   "projected30DayCompressedVideoGB" : 7.966160774230957,
   "projected30DayGlassRecallMB" : 48.433274999999995,
   "projected30DayRawPNGGB" : 64.17185068130493,
-  "sanitizerAvgMs" : 0.2843499183654785,
+  "sanitizerAvgMs" : 0.7345348596572876,
   "sanitizerSecretsCaught" : 4,
   "scalePoints" : [
     {
       "bytesPerMemory" : 1142.784,
       "databaseBytes" : 1142784,
       "recordCount" : 1000,
-      "searchP50Ms" : 4.7760009765625,
-      "searchP95Ms" : 5.673050880432129
+      "searchP50Ms" : 10.583043098449707,
+      "searchP95Ms" : 15.03610610961914
     },
     {
       "bytesPerMemory" : 1066.5984,
       "databaseBytes" : 5332992,
       "recordCount" : 5000,
-      "searchP50Ms" : 6.909966468811035,
-      "searchP95Ms" : 15.76995849609375
+      "searchP50Ms" : 12.077093124389648,
+      "searchP95Ms" : 17.518997192382812
     },
     {
       "bytesPerMemory" : 1050.2144,
       "databaseBytes" : 10502144,
       "recordCount" : 10000,
-      "searchP50Ms" : 8.036971092224121,
-      "searchP95Ms" : 10.594964027404785
+      "searchP50Ms" : 11.340022087097168,
+      "searchP95Ms" : 20.084023475646973
     },
     {
       "bytesPerMemory" : 1068.72832,
       "databaseBytes" : 26718208,
       "recordCount" : 25000,
-      "searchP50Ms" : 16.10696315765381,
-      "searchP95Ms" : 20.907044410705566
+      "searchP50Ms" : 17.517924308776855,
+      "searchP95Ms" : 23.58400821685791
     }
   ],
-  "visionOCRAvgMs" : 750.5730092525482,
+  "visionOCRAvgMs" : 1408.1822335720062,
   "visionOCRWordRecallPercent" : 100
 }
